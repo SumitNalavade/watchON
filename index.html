@@ -23,40 +23,51 @@
     </nav>
 
     <main>
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://image.tmdb.org/t/p/w500/lSEr1nphZuCqXli3VziIgCI8Ivf.jpg" class="d-block w-100"
-                        alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://image.tmdb.org/t/p/w500/ic0intvXZSfBlYPIvWXpU1ivUCO.jpg" class="d-block w-100"
-                        alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://image.tmdb.org/t/p/w500/9dKCd55IuTT5QRs989m9Qlb7d2B.jpg" class="d-block w-100"
-                        alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://image.tmdb.org/t/p/w500/7p0O4mKYLIhU2E5Zcq9Z3vOZ4e9.jpg" class="d-block w-100"
-                        alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+        <div id="carouselHolder">
+            <section id="popularMovies">
+                <div>
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="popular">
+
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <h3>Popular Movies</h3>
+            </section>
+
+            <section id="topRatedMovies">
+                <div>
+                    <div id="carouselExampleControls2" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="top_rated">
+
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <h3>Top Rated Movies</h3>
+            </section>
         </div>
 
         <div class="generaSelectionContainer">
-            <button class="generasButton" id="popularGeneraButton">Popular</button>
-            <button class="generasButton" id="topRatedGeneraButton">Top Rated</button>
             <button class="generasButton" id="actionGeneraButton">Action</button>
             <button class="generasButton" id="comedyGeneraButton">Comedy</button>
             <button class="generasButton" id="horrorGeneraButton">Horror</button>

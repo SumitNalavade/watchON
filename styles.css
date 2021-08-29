@@ -42,9 +42,10 @@ nav {
     border-color: #06d6a0;
 }
 
-main {
+#carouselHolder {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .carousel {
