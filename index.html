@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WatchON - Movie Info & Suggestions</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="cssreset.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,19 +23,53 @@
     </nav>
 
     <main>
-        <div class="carousel">
-            <a class="carousel-item" href="#one!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/166/416516.jpg"></a>
-            <a class="carousel-item" href="#two!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/238/596530.jpg"></a>
-            <a class="carousel-item" href="#three!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/335/839018.jpg"></a>
-            <a class="carousel-item" href="#four!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/175/439103.jpg"></a>
-            <a class="carousel-item" href="#five!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/165/413548.jpg"></a>
-            <a class="carousel-item" href="#six!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/287/717993.jpg"></a>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://image.tmdb.org/t/p/w500/lSEr1nphZuCqXli3VziIgCI8Ivf.jpg" class="d-block w-100"
+                        alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://image.tmdb.org/t/p/w500/ic0intvXZSfBlYPIvWXpU1ivUCO.jpg" class="d-block w-100"
+                        alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://image.tmdb.org/t/p/w500/9dKCd55IuTT5QRs989m9Qlb7d2B.jpg" class="d-block w-100"
+                        alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://image.tmdb.org/t/p/w500/7p0O4mKYLIhU2E5Zcq9Z3vOZ4e9.jpg" class="d-block w-100"
+                        alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
 
-          </div>
+        <div class="generaSelectionContainer">
+            <button class="generasButton" id="popularGeneraButton">Popular</button>
+            <button class="generasButton" id="topRatedGeneraButton">Top Rated</button>
+            <button class="generasButton" id="actionGeneraButton">Action</button>
+            <button class="generasButton" id="comedyGeneraButton">Comedy</button>
+            <button class="generasButton" id="horrorGeneraButton">Horror</button>
+            <button class="generasButton" id="romanceGeneraButton">Romance</button>
+            <button class="generasButton" id="scienceFictionGeneraButton">Science Fiction</button>
+            <button class="generasButton" id="documentaryGeneraButton">Documentary</button>
+        </div>
     </main>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
 

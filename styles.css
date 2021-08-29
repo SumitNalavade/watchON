@@ -42,16 +42,35 @@ nav {
     border-color: #06d6a0;
 }
 
-.carousel {
-    height: 65% !important;
+main {
+    display: flex;
+    flex-direction: column;
 }
 
-.carousel .carousel-item {
-    width: 25%;
+.carousel {
+    align-self: center;
+    width: 20em;
+}
 
+.generaSelectionContainer {
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
+
+    background-color: #06d6a0;
+    padding: 0.5em;
+}
+.generasButton {
+    border: 1px solid #100007;
+    border-radius: 0.5em;
+
+    background-color: white;
+
+    padding: 0.25em 1em;
+}
+
+.selectedGenera {
+    color : purple;
+    border-color: purple;
 }
 
 @media (max-width: 500px) {
