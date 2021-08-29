@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WatchON - Movie Info & Suggestions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="cssreset.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,15 +18,24 @@
     <nav>
         <h2 class="logoMain" id="logoH2">Watch<span id="logoSpan">ON</span></h2>
         <input placeholder="Search" id="mainSearch">
-        <h2 class="logoMain" id="suggestionsButton">Suggestions</h2>
+        <button class="logoMain" id="suggestionsButton">Suggestions</button>
     </nav>
 
     <main>
-    
+        <div class="carousel">
+            <a class="carousel-item" href="#one!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/166/416516.jpg"></a>
+            <a class="carousel-item" href="#two!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/238/596530.jpg"></a>
+            <a class="carousel-item" href="#three!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/335/839018.jpg"></a>
+            <a class="carousel-item" href="#four!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/175/439103.jpg"></a>
+            <a class="carousel-item" href="#five!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/165/413548.jpg"></a>
+            <a class="carousel-item" href="#six!"><img src="https://static.tvmaze.com/uploads/images/original_untouched/287/717993.jpg"></a>
+
+          </div>
     </main>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="app.js"></script>
-
 </body>
 
 </html>

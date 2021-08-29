@@ -20,20 +20,43 @@ nav {
     color : #06d6a0;
 }
 #suggestionsButton {
-    color : #ef476f;
-    border : 2px solid #ef476f;
+    color : #100007;
+    background-color: inherit;
+    border : 2px solid #100007;
 
     padding: 0.5em;
     border-radius: 0.5em;
 }
 #mainSearch {
-    width: 40em;
+    width: 50em;
     height: 2.25em;
 
-    border: 2px solid #06d6a0;
+    border: 2px solid #100007;
     border-radius: 0.5em;
 
     margin: 0em 2em;
     padding: 0em 0.5em;
 }
+#mainSearch:focus, #suggestionsButton:active {
+    outline : none;
+    border-color: #06d6a0;
+}
 
+.carousel {
+    height: 65% !important;
+}
+
+.carousel .carousel-item {
+    width: 25%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 500px) {
+    #suggestionsButton {
+        display: none;
+    }
+
+}
