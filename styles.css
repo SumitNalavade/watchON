@@ -1,5 +1,7 @@
 body {
     font-family: 'Roboto', sans-serif;
+
+    background-color: #323031;
 }
 
 nav {
@@ -11,18 +13,18 @@ nav {
 
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     background-color: inherit;
+    color : white
 }
 #logoH2 {
     font-size: 2em;
-    color : black;
 }
 #logoSpan {
     color : #06d6a0;
 }
 #suggestionsButton {
-    color : #100007;
+    color : white;
     background-color: inherit;
-    border : 2px solid #100007;
+    border : 2px solid white;
 
     padding: 0.5em;
     border-radius: 0.5em;
@@ -56,17 +58,19 @@ nav {
 .generaSelectionContainer {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 
     background-color: #06d6a0;
-    padding: 0.5em;
+    padding: 1em 0.5em;
 }
 .generasButton {
-    border: 1px solid #100007;
+    border: 3px solid white;
     border-radius: 0.5em;
 
     background-color: white;
 
-    padding: 0.25em 1em;
+    padding: 0.5em 1.5em;
+    margin: 1em;
 }
 
 .selectedGenera {
@@ -74,9 +78,26 @@ nav {
     border-color: purple;
 }
 
-@media (max-width: 500px) {
-    #suggestionsButton {
+.movieGenera {
+    text-align: center;
+    color: white;
+
+    padding: 1em 0em;
+
+    font-size: 1.25em;
+}
+
+#moviesContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+    #topRatedMovies {
         display: none;
     }
 
+    nav {
+        font-size: 0.75em;
+    }
 }

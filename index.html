@@ -28,7 +28,7 @@
                 <div>
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="popular">
-
+                            <!-- carousel items added in as API is called -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
                             data-bs-slide="prev">
@@ -42,14 +42,14 @@
                         </button>
                     </div>
 
-                    <h3>Popular Movies</h3>
+                    <h3 class="movieGenera">Popular Movies</h3>
             </section>
 
             <section id="topRatedMovies">
                 <div>
                     <div id="carouselExampleControls2" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="top_rated">
-
+                            <!-- carousel items added in as API is called -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2"
                             data-bs-slide="prev">
@@ -63,18 +63,22 @@
                         </button>
                     </div>
 
-                    <h3>Top Rated Movies</h3>
+                    <h3 class="movieGenera">Top Rated Movies</h3>
             </section>
         </div>
 
         <div class="generaSelectionContainer">
-            <button class="generasButton" id="actionGeneraButton">Action</button>
-            <button class="generasButton" id="comedyGeneraButton">Comedy</button>
-            <button class="generasButton" id="horrorGeneraButton">Horror</button>
-            <button class="generasButton" id="romanceGeneraButton">Romance</button>
-            <button class="generasButton" id="scienceFictionGeneraButton">Science Fiction</button>
-            <button class="generasButton" id="documentaryGeneraButton">Documentary</button>
+            <button class="generasButton selectedGenera" id="actionGeneraButton" aria-label="28">Action</button>
+            <button class="generasButton" id="comedyGeneraButton" aria-label="35">Comedy</button>
+            <button class="generasButton" id="horrorGeneraButton" aria-label="27">Horror</button>
+            <button class="generasButton" id="romanceGeneraButton" aria-label="10749">Romance</button>
+            <button class="generasButton" id="scienceFictionGeneraButton" aria-label="878">Science Fiction</button>
+            <button class="generasButton" id="documentaryGeneraButton" aria-label="99">Documentary</button>
         </div>
+
+        <section id="moviesContainer">
+
+        </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

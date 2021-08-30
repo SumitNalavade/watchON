@@ -1,10 +1,11 @@
-/*
- <div class="carousel-item active">
-                            <img src=""
-                                class="d-block w-100" alt="...">
-                        </div>
-*/
+let currentGenera = document.querySelector("#actionGeneraButton").getAttribute("aria-label")
 
+for (let i of document.querySelectorAll(".generasButton")) {
+  i.addEventListener("click", () => {
+    currentGenera = i.getAttribute("aria-label");
+    assignSelectedGeneraColor();
+  })
+}
 
 async function getMovies(content) {
   let getMoviesPromise = await axios.get(`https://api.themoviedb.org/3/movie/${content}?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1`)
@@ -12,7 +13,7 @@ async function getMovies(content) {
 }
 
 //Collcts the data from getMovies using a content type (popular, top_rated etc...) and calls the helper function to add image posters
-function createPosters1(content) {
+function getPopularAndTopRatedMovies(content) {
   getMovies(content).then(response => {
     for (let i = 0; i < response.length; i++) {
       if (i === 0) {
@@ -24,7 +25,7 @@ function createPosters1(content) {
   })
 }
 
-//Helper for createPosters1 that makes the imagePosters and appends it to the page
+//Helper for getPopularAndTopRatedMovies that makes the imagePosters and appends it to the page
 function createPosters2(imageURL, isActive, content) {
   let newPosterContainer = document.createElement("div");
   newPosterContainer.classList.add("carousel-item")
@@ -45,5 +46,15 @@ function createPosters2(imageURL, isActive, content) {
 
 }
 
-createPosters1("popular")
-createPosters1("top_rated")
+function assignSelectedGeneraColor() {
+  for (let i of document.querySelectorAll(".generasButton")) {
+    if (i.getAttribute("aria-label") == currentGenera) {
+      i.classList.add("selectedGenera")
+    } else {
+      i.classList.remove("selectedGenera")
+    }
+  }
+}
+
+getPopularAndTopRatedMovies("popular")
+getPopularAndTopRatedMovies("top_rated")
