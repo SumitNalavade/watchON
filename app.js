@@ -57,7 +57,6 @@ function addToGeneraContainer(APIURL) {
   });
 }
 
-
 function assignSelectedGeneraColor() {
   for (let i of document.querySelectorAll(".generasButton")) {
     if (i.getAttribute("aria-label") == currentGenera) {
