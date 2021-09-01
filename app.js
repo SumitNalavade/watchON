@@ -7,6 +7,9 @@ let movies = {
   99: []
 }
 
+let currentPage = 1
+
+
 let currentGenera = document.querySelector("#actionGeneraButton").getAttribute("aria-label")
 
 for (let i of document.querySelectorAll(".generasButton")) {
@@ -82,9 +85,20 @@ function addToGeneraContainer(APIURL, generaNumber) {
 }
 
 function clearGeneraContainer() {
-  for(let i of document.querySelectorAll(".generaMovie")) {
+  for (let i of document.querySelectorAll(".generaMovie")) {
     i.remove();
   }
+}
+
+function lazyLoadImages(APIURL) {
+  getMovies(APIURL).then(response => {
+    for (let i of response) {
+      let newImage = document.createElement("img");
+      newImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.poster_path}`)
+      newImage.classList.add("generaMovie")
+      document.querySelector("#moviesContainer").appendChild(newImage)
+    }
+  })
 }
 
 function assignSelectedGeneraColor() {
@@ -95,8 +109,20 @@ function assignSelectedGeneraColor() {
       i.classList.remove("selectedGenera")
     }
   }
+  currentPage = 1
+  currentGenera = document.querySelector(".selectedGenera").getAttribute("aria-label")
 }
 
 getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/popular?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "popular")
 getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/top_rated?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "top_rated")
 addToGeneraContainer(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, 28)
+
+document.addEventListener('scroll', function (event) {
+  if (document.body.scrollHeight ==
+    document.body.scrollTop +
+    window.innerHeight) {
+      currentPage += 1
+      console.log(currentGenera)
+    lazyLoadImages(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`)
+  }
+});
