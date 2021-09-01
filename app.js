@@ -63,23 +63,23 @@ function addToGeneraContainer(APIURL, generaNumber) {
   if (movies[generaNumber].length == 0) {
     getMovies(APIURL).then(response => {
       for (let i of response) {
-        movies[generaNumber].push(`https://image.tmdb.org/t/p/w500${i.poster_path}`)
+        movies[generaNumber].push(`https://image.tmdb.org/t/p/w500${i.poster_path}`);
       }
     }).then(data => {
       for (let i of movies[generaNumber]) {
         let newImage = document.createElement("img");
-        newImage.setAttribute("src", i)
-        newImage.classList.add("generaMovie")
-        document.querySelector("#moviesContainer").appendChild(newImage)
+        newImage.setAttribute("src", i);
+        newImage.classList.add("generaMovie");
+        document.querySelector("#moviesContainer").appendChild(newImage);
       }
     })
   }
   else {
     for (let i of movies[generaNumber]) {
       let newImage = document.createElement("img");
-      newImage.setAttribute("src", i)
-      newImage.classList.add("generaMovie")
-      document.querySelector("#moviesContainer").appendChild(newImage)
+      newImage.setAttribute("src", i);
+      newImage.classList.add("generaMovie");
+      document.querySelector("#moviesContainer").appendChild(newImage);
     }
   }
 }
@@ -93,10 +93,12 @@ function clearGeneraContainer() {
 function lazyLoadImages(APIURL) {
   getMovies(APIURL).then(response => {
     for (let i of response) {
-      let newImage = document.createElement("img");
-      newImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.poster_path}`)
-      newImage.classList.add("generaMovie")
-      document.querySelector("#moviesContainer").appendChild(newImage)
+      if (i.poster_path) {
+        let newImage = document.createElement("img");
+        newImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.poster_path}`);
+        newImage.classList.add("generaMovie");
+        document.querySelector("#moviesContainer").appendChild(newImage);
+      }
     }
   })
 }
@@ -121,8 +123,7 @@ document.addEventListener('scroll', function (event) {
   if (document.body.scrollHeight ==
     document.body.scrollTop +
     window.innerHeight) {
-      currentPage += 1
-      console.log(currentGenera)
+    currentPage += 1
     lazyLoadImages(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`)
   }
 });
