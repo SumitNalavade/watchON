@@ -90,7 +90,7 @@ function clearGeneraContainer() {
   }
 }
 
-function lazyLoadImages(APIURL) {
+function lazyLoadImages(APIURL, currentGenera) {
   getMovies(APIURL).then(response => {
     for (let i of response) {
       if (i.poster_path) {
@@ -98,6 +98,7 @@ function lazyLoadImages(APIURL) {
         newImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.poster_path}`);
         newImage.classList.add("generaMovie");
         document.querySelector("#moviesContainer").appendChild(newImage);
+        movies[currentGenera].push(`https://image.tmdb.org/t/p/w500${i.poster_path}`)
       }
     }
   })
@@ -124,6 +125,6 @@ document.addEventListener('scroll', function (event) {
     document.body.scrollTop +
     window.innerHeight) {
     currentPage += 1
-    lazyLoadImages(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`)
+    lazyLoadImages(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, currentGenera)
   }
 });
