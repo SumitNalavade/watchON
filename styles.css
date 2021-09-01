@@ -99,6 +99,10 @@ nav {
     margin: 0.5em 0.5em;
 }
 
+.generaMovie:hover {
+    box-shadow: 0px 0px 15px #06d6a0;
+}
+
 @media (max-width: 700px) {
     #topRatedMovies {
         display: none;
