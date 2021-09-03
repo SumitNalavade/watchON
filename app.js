@@ -7,7 +7,7 @@ let movies = {
   99: []
 }
 
-let currentPage = 1
+let currentPage = 2
 
 
 let currentGenera = document.querySelector("#actionGeneraButton").getAttribute("aria-label")
@@ -17,9 +17,14 @@ for (let i of document.querySelectorAll(".generasButton")) {
     currentGenera = i.getAttribute("aria-label");
     assignSelectedGeneraColor();
     clearGeneraContainer();
-    addToGeneraContainer(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, currentGenera)
+    addToGeneraContainer(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, currentGenera)
   })
 }
+
+document.querySelector("#loadMoreButton").addEventListener("click", () => {
+  currentPage += 1
+  lazyLoadImages(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, currentGenera)
+})
 
 async function getMovies(APIURL) {
   let getMoviesPromise = await axios.get(APIURL)
@@ -112,19 +117,22 @@ function assignSelectedGeneraColor() {
       i.classList.remove("selectedGenera")
     }
   }
-  currentPage = 1
+  currentPage = 2
   currentGenera = document.querySelector(".selectedGenera").getAttribute("aria-label")
 }
 
 getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/popular?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "popular")
 getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/top_rated?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "top_rated")
 addToGeneraContainer(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, 28)
+document.querySelector("#loadMoreButton").click()
 
 document.addEventListener('scroll', function (event) {
   if (document.body.scrollHeight ==
     document.body.scrollTop +
     window.innerHeight) {
     currentPage += 1
+    document.querySelector("#loadMoreButton").style.display = "none";
     lazyLoadImages(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, currentGenera)
   }
 });
+
