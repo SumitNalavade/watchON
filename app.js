@@ -9,7 +9,6 @@ let movies = {
 
 let currentPage = 2
 
-
 let currentGenera = document.querySelector("#actionGeneraButton").getAttribute("aria-label")
 
 for (let i of document.querySelectorAll(".generasButton")) {
@@ -64,6 +63,7 @@ function createPosters2(imageURL, isActive, content) {
   }
 
 }
+
 function addToGeneraContainer(APIURL, generaNumber) {
   if (movies[generaNumber].length == 0) {
     getMovies(APIURL).then(response => {
@@ -72,21 +72,21 @@ function addToGeneraContainer(APIURL, generaNumber) {
       }
     }).then(data => {
       for (let i of movies[generaNumber]) {
-        let newImage = document.createElement("img");
-        newImage.setAttribute("src", i);
-        newImage.classList.add("generaMovie");
-        document.querySelector("#moviesContainer").appendChild(newImage);
+        addToGeneraContainer2(i)
       }
     })
   }
   else {
     for (let i of movies[generaNumber]) {
-      let newImage = document.createElement("img");
-      newImage.setAttribute("src", i);
-      newImage.classList.add("generaMovie");
-      document.querySelector("#moviesContainer").appendChild(newImage);
+      addToGeneraContainer2(i)
     }
   }
+}
+function addToGeneraContainer2(src) {
+  let newImage = document.createElement("img");
+  newImage.setAttribute("src", src);
+  newImage.classList.add("generaMovie");
+  document.querySelector("#moviesContainer").appendChild(newImage);
 }
 
 function clearGeneraContainer() {
@@ -100,9 +100,7 @@ function lazyLoadImages(APIURL, currentGenera) {
     for (let i of response) {
       if (i.poster_path) {
         let newImage = document.createElement("img");
-        newImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.poster_path}`);
-        newImage.classList.add("generaMovie");
-        document.querySelector("#moviesContainer").appendChild(newImage);
+        addToGeneraContainer2(`https://image.tmdb.org/t/p/w500${i.poster_path}`)
         movies[currentGenera].push(`https://image.tmdb.org/t/p/w500${i.poster_path}`)
       }
     }
