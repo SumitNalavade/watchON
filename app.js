@@ -68,24 +68,36 @@ function addToGeneraContainer(APIURL, generaNumber) {
   if (movies[generaNumber].length == 0) {
     getMovies(APIURL).then(response => {
       for (let i of response) {
-        movies[generaNumber].push(`https://image.tmdb.org/t/p/w500${i.poster_path}`);
+        movies[generaNumber].push({
+          posterPath: `https://image.tmdb.org/t/p/w500${i.poster_path}`,
+          title: i.title,
+          description: i.overview
+        });
       }
     }).then(data => {
       for (let i of movies[generaNumber]) {
-        addToGeneraContainer2(i)
+        addToGeneraContainer2(i.posterPath, i.title, i.description)
       }
     })
   }
   else {
     for (let i of movies[generaNumber]) {
-      addToGeneraContainer2(i)
+      addToGeneraContainer2(i.posterPath, i.title, i.description)
     }
   }
 }
-function addToGeneraContainer2(src) {
+function addToGeneraContainer2(src, title, description) {
   let newImage = document.createElement("img");
   newImage.setAttribute("src", src);
   newImage.classList.add("generaMovie");
+
+  // When the user clicks on the button, open the modal
+  newImage.onclick = function () {
+    document.querySelector("#modalTitle").innerText = title
+    document.querySelector("#modalDescription").innerText = description
+    modal.style.display = "block";
+  }
+
   document.querySelector("#moviesContainer").appendChild(newImage);
 }
 
@@ -100,8 +112,12 @@ function lazyLoadImages(APIURL, currentGenera) {
     for (let i of response) {
       if (i.poster_path) {
         let newImage = document.createElement("img");
-        addToGeneraContainer2(`https://image.tmdb.org/t/p/w500${i.poster_path}`)
-        movies[currentGenera].push(`https://image.tmdb.org/t/p/w500${i.poster_path}`)
+        addToGeneraContainer2(`https://image.tmdb.org/t/p/w500${i.poster_path}`, i.title, i.overview)
+        movies[currentGenera].push({
+          posterPath: `https://image.tmdb.org/t/p/w500${i.poster_path}`,
+          title: i.title,
+          description: i.overview
+        })
       }
     }
   })
@@ -124,6 +140,7 @@ getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/top_rated?api_ke
 addToGeneraContainer(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, 28)
 document.querySelector("#loadMoreButton").click()
 
+
 document.addEventListener('scroll', function (event) {
   if (document.body.scrollHeight ==
     document.body.scrollTop +
@@ -134,3 +151,20 @@ document.addEventListener('scroll', function (event) {
   }
 });
 
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
