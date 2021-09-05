@@ -35,16 +35,16 @@ function getPopularAndTopRatedMovies(APIURL, content) {
   getMovies(APIURL).then(response => {
     for (let i = 0; i < response.length; i++) {
       if (i === 0) {
-        createPosters2(response[i].poster_path, true, content)
+        createPosters2(response[i].poster_path, response[i].title, response[i].overview, true, content)
       } else {
-        createPosters2(response[i].poster_path, false, content)
+        createPosters2(response[i].poster_path, response[i].title, response[i].overview, false, content)
       }
     }
   })
 }
 
 //Helper for getPopularAndTopRatedMovies that makes the imagePosters and appends it to the page
-function createPosters2(imageURL, isActive, content) {
+function createPosters2(imageURL, title, description, isActive, content) {
   let newPosterContainer = document.createElement("div");
   newPosterContainer.classList.add("carousel-item")
   if (isActive) {
@@ -54,6 +54,14 @@ function createPosters2(imageURL, isActive, content) {
   let newImage = document.createElement("img");
   newImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
   newImage.classList.add("d-block", "w-100")
+
+  // When the user clicks on the button, open the modal
+  newImage.onclick = function () {
+    document.querySelector("#modalTitle").innerText = title
+    document.querySelector("#modalDescription").innerText = description
+    modal.style.display = "block";
+  }
+
   newPosterContainer.appendChild(newImage);
 
   if (content == "popular") {
