@@ -54,13 +54,7 @@ function createPosters2(imageURL, title, description, isActive, content) {
   let newImage = document.createElement("img");
   newImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
   newImage.classList.add("d-block", "w-100")
-
-  // When the user clicks on the button, open the modal
-  newImage.onclick = function () {
-    document.querySelector("#modalTitle").innerText = title
-    document.querySelector("#modalDescription").innerText = description
-    modal.style.display = "block";
-  }
+  openModalOnPosterClick(imageURL, newImage, title, description);
 
   newPosterContainer.appendChild(newImage);
 
@@ -98,13 +92,7 @@ function addToGeneraContainer2(src, title, description) {
   let newImage = document.createElement("img");
   newImage.setAttribute("src", src);
   newImage.classList.add("generaMovie");
-
-  // When the user clicks on the button, open the modal
-  newImage.onclick = function () {
-    document.querySelector("#modalTitle").innerText = title
-    document.querySelector("#modalDescription").innerText = description
-    modal.style.display = "block";
-  }
+  openModalOnPosterClick(src, newImage, title, description);
 
   document.querySelector("#moviesContainer").appendChild(newImage);
 }
@@ -143,11 +131,6 @@ function assignSelectedGeneraColor() {
   currentGenera = document.querySelector(".selectedGenera").getAttribute("aria-label")
 }
 
-getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/popular?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "popular")
-getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/top_rated?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "top_rated")
-addToGeneraContainer(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, 28)
-document.querySelector("#loadMoreButton").click()
-
 
 document.addEventListener('scroll', function (event) {
   if (document.body.scrollHeight ==
@@ -158,6 +141,15 @@ document.addEventListener('scroll', function (event) {
     lazyLoadImages(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, currentGenera)
   }
 });
+
+function openModalOnPosterClick(imageURL, poster, title, description) {
+  poster.addEventListener("click", () => {
+    document.querySelector("#modalImage").setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
+    document.querySelector("#modalTitle").innerText = title
+    document.querySelector("#modalDescription").innerText = description
+    modal.style.display = "block";
+  })
+}
 
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -176,3 +168,8 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 }
+
+getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/popular?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "popular")
+getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/top_rated?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "top_rated")
+addToGeneraContainer(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, 28)
+document.querySelector("#loadMoreButton").click()
