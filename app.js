@@ -147,27 +147,42 @@ function openModalOnPosterClick(imageURL, poster, title, description) {
     document.querySelector("#modalImage").setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
     document.querySelector("#modalTitle").innerText = title
     document.querySelector("#modalDescription").innerText = description
-    modal.style.display = "block";
+    document.querySelector(".infoModal").style.display = "block";
   })
 }
 
+document.querySelector("#suggestionsButton").addEventListener("click", () => document.querySelector(".suggestionsModal").style.display = "block")
+
 // Get the modal
-var modal = document.getElementById("myModal");
+var infoModal = document.querySelector(".infoModal");
+var suggestionsModal = document.querySelector(".suggestionsModal");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var infoSpan = document.getElementsByClassName("close")[0];
+var suggestionsSpan = document.getElementsByClassName("close")[1];
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
+infoSpan.onclick = function () {
+  infoModal.style.display = "none";
+}
+
+suggestionsSpan.onclick = function () {
+  suggestionsModal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (event.target == infoModal) {
+    infoModal.style.display = "none";
   }
 }
+
+window.onclick = function (event) {
+  if (event.target == suggestionsModal) {
+    suggestionsModal.style.display = "none";
+  }
+}
+
 
 getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/popular?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "popular")
 getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/top_rated?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "top_rated")

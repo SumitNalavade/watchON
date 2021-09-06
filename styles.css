@@ -163,6 +163,9 @@ nav {
     margin: 1em 0em;
     font-weight: bold;
 }
+#modalDescription {
+    line-height: 150%;
+}
 
 #modalImage {
     width: 100px;
