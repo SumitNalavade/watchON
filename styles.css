@@ -21,7 +21,7 @@ nav {
 #logoSpan {
     color : #06d6a0;
 }
-#suggestionsButton {
+.button {
     color : white;
     background-color: inherit;
     border : 2px solid white;
@@ -39,9 +39,9 @@ nav {
     margin: 0em 2em;
     padding: 0em 0.5em;
 }
-#mainSearch:focus, #suggestionsButton:active {
+#mainSearch:focus, #suggestionsButton:active, #likedMoviesInput {
     outline : none;
-    border-color: #06d6a0;
+    border: 2px solid #06d6a0;
 }
 
 #carouselHolder {
@@ -169,6 +169,20 @@ nav {
 
 #modalImage {
     width: 100px;
+}
+
+li {
+    margin: 1em 0em;
+}
+
+#getSuggestionsButton {
+    margin-left: auto;
+    margin-top: 2em;
+    
+    width: 90%;
+    max-width: 10em;
+    color : #06d6a0;
+    border-color: #06d6a0;
 }
 
 @media (max-width: 700px) {

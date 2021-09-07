@@ -153,6 +153,15 @@ function openModalOnPosterClick(imageURL, poster, title, description) {
 
 document.querySelector("#suggestionsButton").addEventListener("click", () => document.querySelector(".suggestionsModal").style.display = "block")
 
+document.querySelector("#likedMoviesInput").addEventListener("keypress", function (evt) {
+  if(evt.key === "Enter") {
+    let likedMovie = document.createElement("li");
+    likedMovie.innerText = this.value;
+    document.querySelector("ul").appendChild(likedMovie);
+    this.value = ""
+  }
+})
+
 // Get the modal
 var infoModal = document.querySelector(".infoModal");
 var suggestionsModal = document.querySelector(".suggestionsModal");
