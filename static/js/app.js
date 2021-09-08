@@ -38,7 +38,6 @@ function getPopularAndTopRatedMovies(APIURL, content) {
   getMovies(APIURL).then(response => {
     for (let i = 0; i < response.length; i++) {
       if (i === 0) {
-        console.log(response[i])
         createPosters2(response[i].poster_path, response[i].title, response[i].overview, true, content, response[i].id)
       } else {
         createPosters2(response[i].poster_path, response[i].title, response[i].overview, false, content, response[i].id)
@@ -73,7 +72,6 @@ function createPosters2(imageURL, title, description, isActive, content, movieID
 function addToGeneraContainer(APIURL, generaNumber) {
   if (movies[generaNumber].length == 0) {
     getMovies(APIURL).then(response => {
-      console.log(response)
       for (let i of response) {
         movies[generaNumber].push({
           posterPath: `https://image.tmdb.org/t/p/w500${i.poster_path}`,
