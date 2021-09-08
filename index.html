@@ -19,7 +19,6 @@
     <nav>
         <h2 class="logoMain" id="logoH2">Watch<span id="logoSpan">ON</span></h2>
         <input placeholder="Search" id="mainSearch">
-        <button class="button" id="suggestionsButton">Suggestions</button>
     </nav>
 
     <main>
@@ -72,6 +71,7 @@
             <button class="generasButton" id="comedyGeneraButton" aria-label="35">Comedy</button>
             <button class="generasButton" id="horrorGeneraButton" aria-label="27">Horror</button>
             <button class="generasButton" id="romanceGeneraButton" aria-label="10749">Romance</button>
+            <button class="generasButton" id="historyGeneraButton" aria-label="36">History</button>
             <button class="generasButton" id="scienceFictionGeneraButton" aria-label="878">Science Fiction</button>
             <button class="generasButton" id="documentaryGeneraButton" aria-label="99">Documentary</button>
         </div>
@@ -93,26 +93,22 @@
                 <img id="modalImage" src="">
                 <span id="modalTitle">Some text in the Modal..</span>
                 <p id="modalDescription"></p>
+
+                <div id="providersContainer">
+                    
+                </div>
+
+                <div id = "reviewsContainer">
+                    <details>
+                        <summary>Reviews</summary>
+                        <ul>
+
+                        </ul>
+                    </details>
+                </div>
             </div>
 
         </div>
-
-        <!-- Suggestions Modal -->
-        <div id="myModal" class="modal suggestionsModal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <input placeholder="Enter liked movies" id="likedMoviesInput">
-                <ul>
-
-                </ul>
-
-                <button class = "button" id="getSuggestionsButton">Get suggestions</button>
-            </div>
-
-        </div>
-
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

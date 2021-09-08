@@ -4,8 +4,11 @@ let movies = {
   27: [],
   10749: [],
   878: [],
-  99: []
+  99: [],
+  36: []
 }
+
+let likedMovies = [];
 
 let currentPage = 2
 
@@ -35,16 +38,17 @@ function getPopularAndTopRatedMovies(APIURL, content) {
   getMovies(APIURL).then(response => {
     for (let i = 0; i < response.length; i++) {
       if (i === 0) {
-        createPosters2(response[i].poster_path, response[i].title, response[i].overview, true, content)
+        console.log(response[i])
+        createPosters2(response[i].poster_path, response[i].title, response[i].overview, true, content, response[i].id)
       } else {
-        createPosters2(response[i].poster_path, response[i].title, response[i].overview, false, content)
+        createPosters2(response[i].poster_path, response[i].title, response[i].overview, false, content, response[i].id)
       }
     }
   })
 }
 
 //Helper for getPopularAndTopRatedMovies that makes the imagePosters and appends it to the page
-function createPosters2(imageURL, title, description, isActive, content) {
+function createPosters2(imageURL, title, description, isActive, content, movieID) {
   let newPosterContainer = document.createElement("div");
   newPosterContainer.classList.add("carousel-item")
   if (isActive) {
@@ -54,7 +58,7 @@ function createPosters2(imageURL, title, description, isActive, content) {
   let newImage = document.createElement("img");
   newImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
   newImage.classList.add("d-block", "w-100")
-  openModalOnPosterClick(imageURL, newImage, title, description);
+  openModalOnPosterClick(imageURL, newImage, title, description, movieID);
 
   newPosterContainer.appendChild(newImage);
 
@@ -69,30 +73,32 @@ function createPosters2(imageURL, title, description, isActive, content) {
 function addToGeneraContainer(APIURL, generaNumber) {
   if (movies[generaNumber].length == 0) {
     getMovies(APIURL).then(response => {
+      console.log(response)
       for (let i of response) {
         movies[generaNumber].push({
           posterPath: `https://image.tmdb.org/t/p/w500${i.poster_path}`,
           title: i.title,
-          description: i.overview
+          description: i.overview,
+          movieID: i.id
         });
       }
     }).then(data => {
       for (let i of movies[generaNumber]) {
-        addToGeneraContainer2(i.posterPath, i.title, i.description)
+        addToGeneraContainer2(i.posterPath, i.title, i.description, i.movieID)
       }
     })
   }
   else {
     for (let i of movies[generaNumber]) {
-      addToGeneraContainer2(i.posterPath, i.title, i.description)
+      addToGeneraContainer2(i.posterPath, i.title, i.description, i.movieID)
     }
   }
 }
-function addToGeneraContainer2(src, title, description) {
+function addToGeneraContainer2(src, title, description, movieID) {
   let newImage = document.createElement("img");
   newImage.setAttribute("src", src);
   newImage.classList.add("generaMovie");
-  openModalOnPosterClick(src, newImage, title, description);
+  openModalOnPosterClick(src, newImage, title, description, movieID);
 
   document.querySelector("#moviesContainer").appendChild(newImage);
 }
@@ -142,56 +148,88 @@ document.addEventListener('scroll', function (event) {
   }
 });
 
-function openModalOnPosterClick(imageURL, poster, title, description) {
+function openModalOnPosterClick(imageURL, poster, title, description, movieID) {
   poster.addEventListener("click", () => {
+    getProviderData(movieID)
+    getReviews(movieID)
     document.querySelector("#modalImage").setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
     document.querySelector("#modalTitle").innerText = title
     document.querySelector("#modalDescription").innerText = description
     document.querySelector(".infoModal").style.display = "block";
+
   })
 }
 
-document.querySelector("#suggestionsButton").addEventListener("click", () => document.querySelector(".suggestionsModal").style.display = "block")
+async function getProviderData(movieID) {
+  if (movieID) {
+    let providerData = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=5f962c263d7b0f3d4790f1a7fec62185`)
+    if (providerData.data.results.US) {
+      let watchLink = document.createElement("a");
+      watchLink.classList.add("watchLink")
+      watchLink.innerText = "Watch Now"
+      watchLink.setAttribute("href", providerData.data.results.US.link)
+      watchLink.setAttribute("target", "_blank");
 
-document.querySelector("#likedMoviesInput").addEventListener("keypress", function (evt) {
-  if(evt.key === "Enter") {
-    let likedMovie = document.createElement("li");
-    likedMovie.innerText = this.value;
-    document.querySelector("ul").appendChild(likedMovie);
-    this.value = ""
+      document.querySelector("#providersContainer").appendChild(watchLink);
+    }
   }
-})
+}
+
+async function getReviews(movieID) {
+  if (movieID) {
+    let reviewData = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/reviews?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1`)
+    for (let i of reviewData.data.results) {
+      let newReview = document.createElement("li");
+
+      let reviewUser = document.createElement("h4");
+      reviewUser.classList.add("reviewUser")
+      reviewUser.innerText = i.author;
+      newReview.appendChild(reviewUser);
+
+      let reviewPoints = document.createElement("h5");
+      reviewPoints.innerText = `${i.author_details.rating}/10`
+      newReview.appendChild(reviewPoints);
+
+      let reviewContent = document.createElement("p");
+      reviewContent.innerHTML = i.content;
+      newReview.appendChild(reviewContent);
+
+      document.querySelector("ul").appendChild(newReview);
+    }
+  }
+}
 
 // Get the modal
 var infoModal = document.querySelector(".infoModal");
-var suggestionsModal = document.querySelector(".suggestionsModal");
 
 // Get the <span> element that closes the modal
 var infoSpan = document.getElementsByClassName("close")[0];
-var suggestionsSpan = document.getElementsByClassName("close")[1];
 
 // When the user clicks on <span> (x), close the modal
 infoSpan.onclick = function () {
-  infoModal.style.display = "none";
-}
+  for (let i of document.querySelectorAll(".watchLink")) {
+    i.remove();
+  }
 
-suggestionsSpan.onclick = function () {
-  suggestionsModal.style.display = "none";
+  for (let i of document.querySelectorAll("li")) {
+    i.remove();
+  }
+  infoModal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
   if (event.target == infoModal) {
+    for (let i of document.querySelectorAll(".watchLink")) {
+      i.remove();
+    }
+
+    for (let i of document.querySelectorAll("li")) {
+      i.remove();
+    }
     infoModal.style.display = "none";
   }
 }
-
-window.onclick = function (event) {
-  if (event.target == suggestionsModal) {
-    suggestionsModal.style.display = "none";
-  }
-}
-
 
 getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/popular?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "popular")
 getPopularAndTopRatedMovies("https://api.themoviedb.org/3/movie/top_rated?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&page=1", "top_rated")
