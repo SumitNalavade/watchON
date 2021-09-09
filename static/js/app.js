@@ -112,11 +112,12 @@ function lazyLoadImages(APIURL, currentGenera) {
     for (let i of response) {
       if (i.poster_path) {
         let newImage = document.createElement("img");
-        addToGeneraContainer2(`https://image.tmdb.org/t/p/w500${i.poster_path}`, i.title, i.overview)
+        addToGeneraContainer2(`https://image.tmdb.org/t/p/w500${i.poster_path}`, i.title, i.overview, i.id)
         movies[currentGenera].push({
           posterPath: `https://image.tmdb.org/t/p/w500${i.poster_path}`,
           title: i.title,
-          description: i.overview
+          description: i.overview,
+          movieID: i.id
         })
       }
     }
@@ -150,6 +151,7 @@ function openModalOnPosterClick(imageURL, poster, title, description, movieID) {
   poster.addEventListener("click", () => {
     getProviderData(movieID)
     getReviews(movieID)
+    getCast(movieID)
     document.querySelector("#modalImage").setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
     document.querySelector("#modalTitle").innerText = title
     document.querySelector("#modalDescription").innerText = description
@@ -192,7 +194,27 @@ async function getReviews(movieID) {
       reviewContent.innerHTML = i.content;
       newReview.appendChild(reviewContent);
 
-      document.querySelector("ul").appendChild(newReview);
+      document.querySelector("#reviewsUL").appendChild(newReview);
+    }
+  }
+}
+
+async function getCast(movieID) {
+  if (movieID) {
+    let castData = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US`)
+    for (let i of castData.data.cast) {
+      let newCast = document.createElement("li");
+
+      let character = document.createElement("h4");
+      character.classList.add("character")
+      character.innerText = i.character;
+      newCast.appendChild(character);
+
+      let realName = document.createElement("h5");
+      realName.innerText = i.name
+      newCast.appendChild(realName);
+
+      document.querySelector("#castUL").appendChild(newCast);
     }
   }
 }
