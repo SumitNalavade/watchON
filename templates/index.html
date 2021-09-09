@@ -96,13 +96,22 @@
                 <p id="modalDescription"></p>
 
                 <div id="providersContainer">
-                    
+
                 </div>
 
-                <div id = "reviewsContainer">
+                <div id="reviewsContainer">
                     <details>
                         <summary>Reviews</summary>
-                        <ul>
+                        <ul id="reviewsUL">
+
+                        </ul>
+                    </details>
+                </div>
+
+                <div id="castContainer">
+                    <details>
+                        <summary>Cast</summary>
+                        <ul id="castUL">
 
                         </ul>
                     </details>
@@ -116,7 +125,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
         crossorigin="anonymous"></script>
-        <script src="{{url_for('static', filename='js/app.js')}}"></script>
+    <script src="{{url_for('static', filename='js/app.js')}}"></script>
 
 </body>
 
