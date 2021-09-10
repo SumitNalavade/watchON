@@ -161,26 +161,27 @@ nav {
   }
 
 #modalTitle {
-    margin: 1em 0em;
     font-weight: bold;
-}
-#modalDescription {
-    margin: 1em 0em;
 }
 
 #modalImage {
     width: 100px;
 }
 
-li {
-    margin: 1em 0em;
-}
-
-.reviewUser {
+.reviewUser, .character {
     font-weight: bold;
 }
 
-.modal-content div {
+.profilePic {
+    width: 5em;
+}
+
+.castLi {
+    display: flex;
+    align-items: center;
+}
+
+.modal-content * {
     margin: 0.5em 0em;
 }
 

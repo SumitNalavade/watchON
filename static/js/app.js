@@ -203,17 +203,27 @@ async function getCast(movieID) {
   if (movieID) {
     let castData = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US`)
     for (let i of castData.data.cast) {
+      console.log(i);
       let newCast = document.createElement("li");
+      newCast.classList.add("castLi");
+
+      let castInfoContainer = document.createElement("div");
+      
+      let profilePicture = document.createElement("img");
+      profilePicture.classList.add("profilePic")
+      profilePicture.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.profile_path}`);
+      newCast.appendChild(profilePicture);
 
       let character = document.createElement("h4");
       character.classList.add("character")
       character.innerText = i.character;
-      newCast.appendChild(character);
+      castInfoContainer.appendChild(character);
 
       let realName = document.createElement("h5");
       realName.innerText = i.name
-      newCast.appendChild(realName);
+      castInfoContainer.appendChild(realName);
 
+      newCast.appendChild(castInfoContainer);
       document.querySelector("#castUL").appendChild(newCast);
     }
   }
