@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/cssreset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homeStyles.css') }}">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,8 +18,13 @@
 
 <body>
     <nav>
-        <h2 class="logoMain" id="logoH2">Watch<span id="logoSpan">ON</span></h2>
-        <input placeholder="Search" id="mainSearch">
+
+        <form action="/search" method="POST">
+            <a href="/">
+                <h2 class="logoMain" id="logoH2">Watch<span id="logoSpan">ON</span></h2>
+            </a>
+            <input placeholder="Search" id="mainSearch" name="search">
+        </form>
     </nav>
 
     <main>

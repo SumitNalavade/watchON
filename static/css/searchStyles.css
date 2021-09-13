@@ -1,0 +1,18 @@
+#movieSearchContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.movieSearch {
+    width: 70%;
+    margin: 1em 0em;
+
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+
+.movieSearchPoster {
+    width: 300px;
+}

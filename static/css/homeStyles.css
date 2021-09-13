@@ -17,6 +17,10 @@ nav {
 
 #logoH2 {
     font-size: 2em;
+    color: white
+}
+a{
+    text-decoration: none;
 }
 #logoSpan {
     color : #06d6a0;
@@ -183,6 +187,11 @@ nav {
 
 .modal-content * {
     margin: 0.5em 0em;
+}
+
+form {
+    display: flex;
+    width: 100%;
 }
 
 @media (max-width: 700px) {
