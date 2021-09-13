@@ -136,11 +136,10 @@ function assignSelectedGeneraColor() {
   currentGenera = document.querySelector(".selectedGenera").getAttribute("aria-label")
 }
 
-
 document.addEventListener('scroll', function (event) {
-  if (document.body.scrollHeight ==
-    document.body.scrollTop +
-    window.innerHeight) {
+  let offset = window.scrollY/ (document.body.offsetHeight - window.innerHeight)
+
+  if (offset > 0.85) {
     currentPage += 1
     document.querySelector("#loadMoreButton").style.display = "none";
     lazyLoadImages(`https://api.themoviedb.org/3/discover/movie?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${currentGenera}&with_watch_monetization_types=flatrate`, currentGenera)
