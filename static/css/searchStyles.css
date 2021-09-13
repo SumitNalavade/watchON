@@ -4,15 +4,17 @@
     align-items: center;
 }
 
-.movieSearch {
-    width: 70%;
-    margin: 1em 0em;
-
+.card {
     display: flex;
-    align-items: center;
-    background-color: white;
+    flex-direction: row;
+
+    width: 80%;
+
+    flex-wrap: wrap;
+
+    margin: 1em 0em;
 }
 
-.movieSearchPoster {
-    width: 300px;
+.card-img-top {
+    width: 10em;
 }

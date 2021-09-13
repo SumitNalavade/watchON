@@ -185,6 +185,10 @@ a{
     align-items: center;
 }
 
+.castLi div {
+    margin-left: 1em;
+}
+
 .modal-content * {
     margin: 0.5em 0em;
 }
