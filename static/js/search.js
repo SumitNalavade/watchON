@@ -4,36 +4,45 @@ async function getMovieSearch () {
     return (movieSearchData.data.results);
 }
 
-/*
- <div class="card">
-                <img src="https://image.tmdb.org/t/p/w500/6Y9fl8tD1xtyUrOHV2MkCYTpzgi.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h4 class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</h4>
-                </div>
-            </div>
-*/
+function createSearchImage (imageURL) {
+    let newPoster = document.createElement("img");
+    newPoster.setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
+    newPoster.classList.add("card-img-top");
+    
+    return newPoster
+}
+
+function createSearchTitle (title) {
+    let newCardText = document.createElement("h4");
+    newCardText.classList.add("card-text", "modalTitle");
+    newCardText.innerText = title;
+
+    return newCardText
+} 
+
+function createSearchDescription (description) {
+    let newDescriptionText = document.createElement("p");
+    newDescriptionText.classList.add("modalDescription");
+    newDescriptionText.innerText = description;
+
+    return newDescriptionText
+}
+
 
 function createSearchCards () {
     getMovieSearch().then(response => {
         for(let i of response) {
-            console.log(i.poster_path);
             let newCard = document.createElement("div");
             newCard.classList.add("card");
 
-            let newPoster = document.createElement("img");
-            newPoster.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.poster_path}`)
-            newPoster.classList.add("card-img-top");
-            newCard.appendChild(newPoster);
+            newCard.appendChild(createSearchImage(i.poster_path))
 
             let newCardBody = document.createElement("div");
             newCardBody.classList.add("card-body");
             newCard.appendChild(newCardBody);
 
-            let newCardText = document.createElement("h4");
-            newCardText.classList.add("card-text");
-            newCardText.innerText = i.title;
-            newCardBody.appendChild(newCardText);
+            newCardBody.appendChild(createSearchTitle(i.title))
+            newCardBody.appendChild(createSearchDescription(i.overview))
 
             document.querySelector("#movieSearchContainer").appendChild(newCard);
 

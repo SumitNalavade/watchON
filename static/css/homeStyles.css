@@ -164,7 +164,7 @@ a{
     cursor: pointer;
   }
 
-#modalTitle {
+.modalTitle {
     font-weight: bold;
 }
 

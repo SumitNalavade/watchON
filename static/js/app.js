@@ -152,8 +152,8 @@ function openModalOnPosterClick(imageURL, poster, title, description, movieID) {
     getReviews(movieID)
     getCast(movieID)
     document.querySelector("#modalImage").setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
-    document.querySelector("#modalTitle").innerText = title
-    document.querySelector("#modalDescription").innerText = description
+    document.querySelector(".modalTitle").innerText = title
+    document.querySelector(".modalDescription").innerText = description
     document.querySelector(".infoModal").style.display = "block";
 
   })
