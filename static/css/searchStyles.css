@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.card-body * {
+    margin: 1em 0em;
+}
+
 .card {
     display: flex;
     flex-direction: row;
@@ -15,4 +19,8 @@
 
 .card-img-top {
     width: 10em;
+}
+
+.searchImg {
+    height: 100%
 }

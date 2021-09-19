@@ -193,7 +193,7 @@ async function getReviews(movieID) {
       reviewContent.innerHTML = i.content;
       newReview.appendChild(reviewContent);
 
-      document.querySelector("#reviewsUL").appendChild(newReview);
+      document.querySelector(".reviewsUL").appendChild(newReview);
     }
   }
 }
@@ -222,7 +222,7 @@ async function getCast(movieID) {
       castInfoContainer.appendChild(realName);
 
       newCast.appendChild(castInfoContainer);
-      document.querySelector("#castUL").appendChild(newCast);
+      document.querySelector(".castUL").appendChild(newCast);
     }
   }
 }
