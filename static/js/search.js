@@ -44,6 +44,18 @@ function createSearchCards() {
             newCardBody.appendChild(createSearchTitle(i.title))
             newCardBody.appendChild(createSearchDescription(i.overview))
 
+            getSearchWatchLinks(i.id).then(response => {
+                if (response) {
+                    let watchLink = document.createElement("a");
+                    watchLink.classList.add("watchLink")
+                    watchLink.innerText = "Watch Now"
+                    watchLink.setAttribute("href", response)
+                    watchLink.setAttribute("target", "_blank");
+
+                    newCardBody.appendChild(watchLink);
+                }
+            })
+
             let reviewsContainer = document.createElement("div");
             reviewsContainer.classList.add("reviewsContainer");
             let reviewDetailsContainer = document.createElement("details");
@@ -67,18 +79,6 @@ function createSearchCards() {
             newCardBody.appendChild(castContainer);
 
             document.querySelector("#movieSearchContainer").appendChild(newCard);
-
-            getSearchWatchLinks(i.id).then(response => {
-                if (response) {
-                    let watchLink = document.createElement("a");
-                    watchLink.classList.add("watchLink")
-                    watchLink.innerText = "Watch Now"
-                    watchLink.setAttribute("href", response)
-                    watchLink.setAttribute("target", "_blank");
-
-                    newCardBody.appendChild(watchLink);
-                }
-            })
 
             let reviewData = getSearchReviews(i.id).then(response => {
                 for (let i of response) {

@@ -137,7 +137,7 @@ function assignSelectedGeneraColor() {
 }
 
 document.addEventListener('scroll', function (event) {
-  let offset = window.scrollY/ (document.body.offsetHeight - window.innerHeight)
+  let offset = window.scrollY / (document.body.offsetHeight - window.innerHeight)
 
   if (offset > 0.85) {
     currentPage += 1
