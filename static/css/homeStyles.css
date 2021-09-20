@@ -125,7 +125,7 @@ a{
     color: #06d6a0;
 }
 
-.reviewsUL li:not(:last-child){
+.reviewsUL li:not(:first-child,:last-child){
     margin: 3em 0em;
 }
 
