@@ -125,6 +125,11 @@ a{
     color: #06d6a0;
 }
 
+.reviewsUL li:not(:last-child){
+    margin: 3em 0em;
+}
+
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
