@@ -8,6 +8,10 @@
     margin: 1em 0em;
 }
 
+.card-body div {
+    margin: 2em 0em;
+}
+
 .card {
     display: flex;
     flex-direction: row;
@@ -23,6 +27,10 @@
 
 .searchImg {
     height: 100%
+}
+
+.reviewsUL li:not(:first-child,:last-child){
+    margin: 3em 0em;
 }
 
 @media (max-width: 700px) {

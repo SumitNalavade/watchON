@@ -21,6 +21,14 @@ function createSearchTitle(title) {
     return newCardText
 }
 
+function createSearchYear (release_date) {
+    let newReleaseDate = document.createElement("p");
+    newReleaseDate.classList.add("releaseDate");
+    newReleaseDate.innerText = release_date.split("-")[0];
+
+    return newReleaseDate
+}
+
 function createSearchDescription(description) {
     let newDescriptionText = document.createElement("p");
     newDescriptionText.classList.add("modalDescription");
@@ -42,6 +50,7 @@ function createSearchCards() {
             newCard.appendChild(newCardBody);
 
             newCardBody.appendChild(createSearchTitle(i.title))
+            newCardBody.appendChild(createSearchYear(i.release_date))
             newCardBody.appendChild(createSearchDescription(i.overview))
 
             getSearchWatchLinks(i.id).then(response => {
@@ -64,6 +73,7 @@ function createSearchCards() {
             reviewSummary.innerText = "Reviews"
             reviewDetailsContainer.appendChild(reviewSummary);
             let reviewsUL = document.createElement("ul");
+            reviewsUL.classList.add("reviewsUL");
             reviewDetailsContainer.appendChild(reviewsUL);
             newCardBody.appendChild(reviewsContainer);
 

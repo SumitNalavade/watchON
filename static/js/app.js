@@ -38,16 +38,16 @@ function getPopularAndTopRatedMovies(APIURL, content) {
   getMovies(APIURL).then(response => {
     for (let i = 0; i < response.length; i++) {
       if (i === 0) {
-        createPosters2(response[i].poster_path, response[i].title, response[i].overview, true, content, response[i].id)
+        createPosters2(response[i].poster_path, response[i].title, response[i].overview, true, content, response[i].id, response[i].release_date)
       } else {
-        createPosters2(response[i].poster_path, response[i].title, response[i].overview, false, content, response[i].id)
+        createPosters2(response[i].poster_path, response[i].title, response[i].overview, false, content, response[i].id, response[i].release_date)
       }
     }
   })
 }
 
 //Helper for getPopularAndTopRatedMovies that makes the imagePosters and appends it to the page
-function createPosters2(imageURL, title, description, isActive, content, movieID) {
+function createPosters2(imageURL, title, description, isActive, content, movieID, releaseDate) {
   let newPosterContainer = document.createElement("div");
   newPosterContainer.classList.add("carousel-item")
   if (isActive) {
@@ -57,7 +57,7 @@ function createPosters2(imageURL, title, description, isActive, content, movieID
   let newImage = document.createElement("img");
   newImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
   newImage.classList.add("d-block", "w-100")
-  openModalOnPosterClick(imageURL, newImage, title, description, movieID);
+  openModalOnPosterClick(imageURL, newImage, title, description, movieID, releaseDate);
 
   newPosterContainer.appendChild(newImage);
 
@@ -77,26 +77,27 @@ function addToGeneraContainer(APIURL, generaNumber) {
           posterPath: `https://image.tmdb.org/t/p/w500${i.poster_path}`,
           title: i.title,
           description: i.overview,
-          movieID: i.id
+          movieID: i.id,
+          releaseDate : i.release_date
         });
       }
     }).then(data => {
       for (let i of movies[generaNumber]) {
-        addToGeneraContainer2(i.posterPath, i.title, i.description, i.movieID)
+        addToGeneraContainer2(i.posterPath, i.title, i.description, i.movieID, i.releaseDate)
       }
     })
   }
   else {
     for (let i of movies[generaNumber]) {
-      addToGeneraContainer2(i.posterPath, i.title, i.description, i.movieID)
+      addToGeneraContainer2(i.posterPath, i.title, i.description, i.movieID, i.releaseDate)
     }
   }
 }
-function addToGeneraContainer2(src, title, description, movieID) {
+function addToGeneraContainer2(src, title, description, movieID, releaseDate) {
   let newImage = document.createElement("img");
   newImage.setAttribute("src", src);
   newImage.classList.add("generaMovie");
-  openModalOnPosterClick(src, newImage, title, description, movieID);
+  openModalOnPosterClick(src, newImage, title, description, movieID, releaseDate);
 
   document.querySelector("#moviesContainer").appendChild(newImage);
 }
@@ -112,12 +113,13 @@ function lazyLoadImages(APIURL, currentGenera) {
     for (let i of response) {
       if (i.poster_path) {
         let newImage = document.createElement("img");
-        addToGeneraContainer2(`https://image.tmdb.org/t/p/w500${i.poster_path}`, i.title, i.overview, i.id)
+        addToGeneraContainer2(`https://image.tmdb.org/t/p/w500${i.poster_path}`, i.title, i.overview, i.id, i.release_date)
         movies[currentGenera].push({
           posterPath: `https://image.tmdb.org/t/p/w500${i.poster_path}`,
           title: i.title,
           description: i.overview,
-          movieID: i.id
+          movieID: i.id,
+          releaseDate : i.release_date
         })
       }
     }
@@ -146,13 +148,14 @@ document.addEventListener('scroll', function (event) {
   }
 });
 
-function openModalOnPosterClick(imageURL, poster, title, description, movieID) {
+function openModalOnPosterClick(imageURL, poster, title, description, movieID, releaseDate) {
   poster.addEventListener("click", () => {
     getProviderData(movieID)
     getReviews(movieID)
     getCast(movieID)
     document.querySelector("#modalImage").setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
     document.querySelector(".modalTitle").innerText = title
+    document.querySelector(".releaseDate").innerText = releaseDate.split("-")[0]
     document.querySelector(".modalDescription").innerText = description
     document.querySelector(".infoModal").style.display = "block";
 
