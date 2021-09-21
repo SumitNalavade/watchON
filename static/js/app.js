@@ -78,7 +78,7 @@ function addToGeneraContainer(APIURL, generaNumber) {
           title: i.title,
           description: i.overview,
           movieID: i.id,
-          releaseDate : i.release_date
+          releaseDate: i.release_date
         });
       }
     }).then(data => {
@@ -119,7 +119,7 @@ function lazyLoadImages(APIURL, currentGenera) {
           title: i.title,
           description: i.overview,
           movieID: i.id,
-          releaseDate : i.release_date
+          releaseDate: i.release_date
         })
       }
     }
@@ -153,6 +153,7 @@ function openModalOnPosterClick(imageURL, poster, title, description, movieID, r
     getProviderData(movieID)
     getReviews(movieID)
     getCast(movieID)
+    console.log(getTrailer(movieID))
     document.querySelector("#modalImage").setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
     document.querySelector(".modalTitle").innerText = title
     document.querySelector(".releaseDate").innerText = releaseDate.split("-")[0]
@@ -197,6 +198,16 @@ async function getReviews(movieID) {
       newReview.appendChild(reviewContent);
 
       document.querySelector(".reviewsUL").appendChild(newReview);
+    }
+  }
+}
+
+async function getTrailer(movieID) {
+  let trailerData = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US`)
+
+  for (let i of trailerData.data.results) {
+    if (i.type === "Trailer") {
+      document.querySelector(".trailer").setAttribute("href", `https://www.youtube.com/watch?v=${i.key}`)
     }
   }
 }

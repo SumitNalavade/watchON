@@ -21,7 +21,7 @@ function createSearchTitle(title) {
     return newCardText
 }
 
-function createSearchYear (release_date) {
+function createSearchYear(release_date) {
     let newReleaseDate = document.createElement("p");
     newReleaseDate.classList.add("releaseDate");
     newReleaseDate.innerText = release_date.split("-")[0];
@@ -52,6 +52,16 @@ function createSearchCards() {
             newCardBody.appendChild(createSearchTitle(i.title))
             newCardBody.appendChild(createSearchYear(i.release_date))
             newCardBody.appendChild(createSearchDescription(i.overview))
+
+    getTrailer(i.id).then(response => {
+        let trailerA = document.createElement("a");
+        trailerA.classList.add("trailer");
+        trailerA.innerText = "Trailer";
+        trailerA.setAttribute("target", "_blank");
+        trailerA.setAttribute("href", response)
+        
+        newCardBody.appendChild(trailerA);
+    }); 
 
             getSearchWatchLinks(i.id).then(response => {
                 if (response) {
@@ -162,6 +172,16 @@ async function getSearchCast(movieID) {
         let castData = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US`)
 
         return castData.data.cast
+    }
+}
+
+async function getTrailer(movieID) {
+    let trailerData = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=5f962c263d7b0f3d4790f1a7fec62185&language=en-US`)
+
+    for (let i of trailerData.data.results) {
+        if (i.type === "Trailer") {
+            return `https://www.youtube.com/watch?v=${i.key}`
+        }
     }
 }
 

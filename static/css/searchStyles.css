@@ -33,6 +33,10 @@
     margin: 3em 0em;
 }
 
+a {
+    display: block;
+}
+
 @media (max-width: 700px) {
     .card {
         flex-wrap: wrap;
