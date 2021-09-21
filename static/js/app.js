@@ -8,8 +8,6 @@ let movies = {
   36: []
 }
 
-let likedMovies = [];
-
 let currentPage = 2
 
 let currentGenera = document.querySelector("#actionGeneraButton").getAttribute("aria-label")
