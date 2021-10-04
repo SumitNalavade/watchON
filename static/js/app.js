@@ -24,12 +24,12 @@ class Movie {
     this.overview = overview
     this.trailerLink = trailerLink
     this.watchLink = watchLink
-    this.reviews = [reviews]
-    this.cast = [cast]
+    this.reviews = []
+    this.cast = []
     this.movieID = movieID
   }
 
-  async getTrailerLink() {
+  getTrailerLink() {
     fetch(`https://api.themoviedb.org/3/movie/${this.movieID}/videos?api_key=${APIKEY}&language=en-US`).then(response => response.json())
       .then(data => {
         if (data.results.length > 0) {
@@ -39,7 +39,7 @@ class Movie {
       })
   }
 
-  async getWatchLink() {
+  getWatchLink() {
     fetch(`https://api.themoviedb.org/3/movie/${this.movieID}/watch/providers?api_key=${APIKEY}`).then(response => response.json())
       .then(data => {
         if (data.results.US) {
@@ -50,16 +50,38 @@ class Movie {
   }
 
   getReviews() {
-    fetch(`https://api.themoviedb.org/3/movie/${this.movieID}/reviews?api_key=${APIKEY}&language=en-US&page=${currentPage}`).then(response => response.json())
-      .then(data => {
-        data.results.forEach((review) => this.reviews.push(review))
-      })
+    console.log("Not working")
   }
 
   getCast() {
     fetch(`https://api.themoviedb.org/3/movie/${this.movieID}/credits?api_key=${APIKEY}&language=en-US`).then(response => response.json())
       .then(data => {
         data.cast.forEach((person) => this.cast.push(person))
+        for (let i of this.cast) {
+          if (i) {
+            let newCast = document.createElement("li");
+            newCast.classList.add("castLi");
+
+            let castInfoContainer = document.createElement("div");
+
+            let profilePicture = document.createElement("img");
+            profilePicture.classList.add("profilePic")
+            profilePicture.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.profile_path}`);
+            newCast.appendChild(profilePicture);
+
+            let character = document.createElement("h4");
+            character.classList.add("character")
+            character.innerText = i.character;
+            castInfoContainer.appendChild(character);
+
+            let realName = document.createElement("h5");
+            realName.innerText = i.name
+            castInfoContainer.appendChild(realName);
+
+            newCast.appendChild(castInfoContainer);
+            document.querySelector(".castUL").appendChild(newCast);
+          }
+        }
       })
   }
 
@@ -74,8 +96,11 @@ class Movie {
   }
 
   addToModal() {
+    clearModal()
     this.getTrailerLink()
     this.getWatchLink()
+    this.getReviews()
+    this.getCast()
 
     document.querySelector("#modalImage").setAttribute("src", this.poster_path)
     document.querySelector(".modalTitle").innerText = this.name
@@ -133,6 +158,12 @@ async function getAllMovies(generaNumber) {
 function clearAllMovies() {
   for (let movie of document.querySelectorAll(".generaMovie")) {
     movie.remove();
+  }
+}
+
+function clearModal() {
+  for (let i of document.querySelectorAll("li")) {
+    i.remove()
   }
 }
 
