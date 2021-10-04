@@ -34,15 +34,17 @@ class Movie {
       .then(data => {
         if (data.results.length > 0) {
           this.trailerLink = `https://www.youtube.com/watch?v=${data.results[0].key}`
+          document.querySelector(".trailer").setAttribute("href", this.trailerLink)
         }
       })
   }
 
-  getWatchLink() {
+  async getWatchLink() {
     fetch(`https://api.themoviedb.org/3/movie/${this.movieID}/watch/providers?api_key=${APIKEY}`).then(response => response.json())
       .then(data => {
         if (data.results.US) {
           this.watchLink = data.results.US.link
+          document.querySelector(".watchLink").setAttribute("href", this.watchLink)
         }
       })
   }
@@ -79,8 +81,6 @@ class Movie {
     document.querySelector(".modalTitle").innerText = this.name
     document.querySelector(".releaseDate").innerText = this.year.split("-")[0]
     document.querySelector(".modalDescription").innerText = this.overview
-    document.querySelector(".trailer").setAttribute("href", this.trailerLink)
-    document.querySelector(".watchLink").setAttribute("href", this.watchLink)
     document.querySelector(".infoModal").style.display = "block";
   }
 }
@@ -172,26 +172,12 @@ var infoSpan = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 infoSpan.onclick = function () {
-  for (let i of document.querySelectorAll(".watchLink")) {
-    i.remove();
-  }
-
-  for (let i of document.querySelectorAll("li")) {
-    i.remove();
-  }
   infoModal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
   if (event.target == infoModal) {
-    for (let i of document.querySelectorAll(".watchLink")) {
-      i.remove();
-    }
-
-    for (let i of document.querySelectorAll("li")) {
-      i.remove();
-    }
     infoModal.style.display = "none";
   }
 }
