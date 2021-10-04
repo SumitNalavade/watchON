@@ -29,7 +29,7 @@ class Movie {
     this.movieID = movieID
   }
 
-  getTrailerLink() {
+  async getTrailerLink() {
     fetch(`https://api.themoviedb.org/3/movie/${this.movieID}/videos?api_key=${APIKEY}&language=en-US`).then(response => response.json())
       .then(data => {
         if (data.results.length > 0) {
@@ -61,14 +61,14 @@ class Movie {
       })
   }
 
-  addToMain () {
+  addToMain() {
     let newImage = document.createElement("img")
-        newImage.setAttribute("src", this.poster_path)
-        newImage.classList.add("generaMovie")
-    
-        newImage.addEventListener("click", () => this.addToModal())
+    newImage.setAttribute("src", this.poster_path)
+    newImage.classList.add("generaMovie")
 
-        document.querySelector("#moviesContainer").appendChild(newImage)
+    newImage.addEventListener("click", () => this.addToModal())
+
+    document.querySelector("#moviesContainer").appendChild(newImage)
   }
 
   addToModal() {
@@ -79,6 +79,8 @@ class Movie {
     document.querySelector(".modalTitle").innerText = this.name
     document.querySelector(".releaseDate").innerText = this.year.split("-")[0]
     document.querySelector(".modalDescription").innerText = this.overview
+    document.querySelector(".trailer").setAttribute("href", this.trailerLink)
+    document.querySelector(".watchLink").setAttribute("href", this.watchLink)
     document.querySelector(".infoModal").style.display = "block";
   }
 }
@@ -145,7 +147,7 @@ for (let buttons of document.querySelectorAll(".generasButton")) {
     buttons.classList.add("selectedGenera")
 
     clearAllMovies()
-    if(moviesObj[currentGenera].length == 0) {
+    if (moviesObj[currentGenera].length == 0) {
       getAllMovies(currentGenera)
     } else {
       moviesObj[currentGenera].forEach(movie => movie.addToMain())
@@ -156,7 +158,7 @@ for (let buttons of document.querySelectorAll(".generasButton")) {
 document.addEventListener("scroll", function (event) {
   let offset = window.scrollY / (document.body.offsetHeight - window.innerHeight)
 
-  if(offset > 0.85) {
+  if (offset > 0.85) {
     currentPage = currentPage + 1
     getAllMovies(currentGenera)
   }
