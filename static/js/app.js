@@ -50,7 +50,27 @@ class Movie {
   }
 
   getReviews() {
-    console.log("Not working")
+    fetch(`https://api.themoviedb.org/3/movie/${this.movieID}/reviews?api_key=${APIKEY}`).then(response => response.json())
+      .then(data => {
+        for (let review of data.results) {
+          let newReview = document.createElement("li");
+
+          let reviewUser = document.createElement("h4");
+          reviewUser.classList.add("reviewUser")
+          reviewUser.innerText = review.author;
+          newReview.appendChild(reviewUser);
+
+          let reviewPoints = document.createElement("h5");
+          reviewPoints.innerText = `${review.author_details.rating}/10`
+          newReview.appendChild(reviewPoints);
+
+          let reviewContent = document.createElement("p");
+          reviewContent.innerHTML = review.content;
+          newReview.appendChild(reviewContent);
+
+          document.querySelector(".reviewsUL").appendChild(newReview);
+        }
+      })
   }
 
   getCast() {
