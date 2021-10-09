@@ -1,5 +1,6 @@
 "use strict"
-const APIKEY = "5f962c263d7b0f3d4790f1a7fec62185"
+
+import { Movie, APIKEY } from "./moviesClass.js"
 
 let currentGenera = document.querySelector("#actionGeneraButton").getAttribute("aria-label")
 let currentPage = 1
@@ -64,12 +65,6 @@ async function getAllMovies(generaNumber) {
 function clearAllMovies() {
   for (let movie of document.querySelectorAll(".generaMovie")) {
     movie.remove();
-  }
-}
-
-function clearModal() {
-  for (let i of document.querySelectorAll("li")) {
-    i.remove()
   }
 }
 
