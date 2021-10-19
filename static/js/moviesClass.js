@@ -94,29 +94,29 @@ export class Movie {
   createCast() {
     this.getCast().then(data => {
       for (let i of this.cast) {
-        if (i) {
-          let newCast = document.createElement("li");
-          newCast.classList.add("castLi");
+        if (!i) { return }
 
-          let castInfoContainer = document.createElement("div");
+        let newCast = document.createElement("li");
+        newCast.classList.add("castLi");
 
-          let profilePicture = document.createElement("img");
-          profilePicture.classList.add("profilePic")
-          profilePicture.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.profile_path}`);
-          newCast.appendChild(profilePicture);
+        let castInfoContainer = document.createElement("div");
 
-          let character = document.createElement("h4");
-          character.classList.add("character")
-          character.innerText = i.character;
-          castInfoContainer.appendChild(character);
+        let profilePicture = document.createElement("img");
+        profilePicture.classList.add("profilePic")
+        profilePicture.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.profile_path}`);
+        newCast.appendChild(profilePicture);
 
-          let realName = document.createElement("h5");
-          realName.innerText = i.name
-          castInfoContainer.appendChild(realName);
+        let character = document.createElement("h4");
+        character.classList.add("character")
+        character.innerText = i.character;
+        castInfoContainer.appendChild(character);
 
-          newCast.appendChild(castInfoContainer);
-          document.querySelector(".castUL").appendChild(newCast);
-        }
+        let realName = document.createElement("h5");
+        realName.innerText = i.name
+        castInfoContainer.appendChild(realName);
+
+        newCast.appendChild(castInfoContainer);
+        document.querySelector(".castUL").appendChild(newCast);
       }
     })
   }
