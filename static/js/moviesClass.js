@@ -63,22 +63,15 @@ export class Movie {
   createReviews() {
     this.getReviews().then(data => {
       for (let review of this.reviews) {
-        let newReview = document.createElement("li");
+        let temp = `
+          <li>
+            <h4 class = "reviewUser">${review.author}</h4>
+            <h5>${review.author_details.rating}/10</h5>
+            <p>${review.content}</p>
+          </li>
+        `
 
-        let reviewUser = document.createElement("h4");
-        reviewUser.classList.add("reviewUser")
-        reviewUser.innerText = review.author;
-        newReview.appendChild(reviewUser);
-
-        let reviewPoints = document.createElement("h5");
-        reviewPoints.innerText = `${review.author_details.rating}/10`
-        newReview.appendChild(reviewPoints);
-
-        let reviewContent = document.createElement("p");
-        reviewContent.innerHTML = review.content;
-        newReview.appendChild(reviewContent);
-
-        document.querySelector(".reviewsUL").appendChild(newReview);
+        document.querySelector(".reviewsUL").innerHTML += temp
       }
     })
   }
@@ -96,27 +89,17 @@ export class Movie {
       for (let i of this.cast) {
         if (!i) { return }
 
-        let newCast = document.createElement("li");
-        newCast.classList.add("castLi");
+        let temp = `
+          <li class = "castLi"> 
+            <img class = "profilePic" src = "https://image.tmdb.org/t/p/w500${i.profile_path}"></img>
+            <div>
+              <h4 class = "character">${i.character}</h4>
+              <h5>${i.name}</h5>
+            </div>
+          </li>
+        `
 
-        let castInfoContainer = document.createElement("div");
-
-        let profilePicture = document.createElement("img");
-        profilePicture.classList.add("profilePic")
-        profilePicture.setAttribute("src", `https://image.tmdb.org/t/p/w500${i.profile_path}`);
-        newCast.appendChild(profilePicture);
-
-        let character = document.createElement("h4");
-        character.classList.add("character")
-        character.innerText = i.character;
-        castInfoContainer.appendChild(character);
-
-        let realName = document.createElement("h5");
-        realName.innerText = i.name
-        castInfoContainer.appendChild(realName);
-
-        newCast.appendChild(castInfoContainer);
-        document.querySelector(".castUL").appendChild(newCast);
+        document.querySelector(".castUL").innerHTML += temp;
       }
     })
   }

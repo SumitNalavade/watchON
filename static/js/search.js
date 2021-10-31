@@ -5,36 +5,27 @@ async function getMovieSearch() {
 }
 
 function createSearchImage(imageURL) {
-    let newPoster = document.createElement("img");
-    newPoster.setAttribute("src", `https://image.tmdb.org/t/p/w500${imageURL}`)
-    newPoster.classList.add("card-img-top");
-    newPoster.classList.add("searchImg");
-
-    return newPoster
+    return `
+        <img class = "card-img-top searchImg" src = "https://image.tmdb.org/t/p/w500${imageURL}"></img>
+    `
 }
 
 function createSearchTitle(title) {
-    let newCardText = document.createElement("h4");
-    newCardText.classList.add("card-text", "modalTitle");
-    newCardText.innerText = title;
-
-    return newCardText
+    return `
+        <h4 class = "card-text modalTitle">${title}</h4>
+    `
 }
 
 function createSearchYear(release_date) {
-    let newReleaseDate = document.createElement("p");
-    newReleaseDate.classList.add("releaseDate");
-    newReleaseDate.innerText = release_date.split("-")[0];
-
-    return newReleaseDate
+    return `
+        <p class = "releaseDate">${release_date.split("-")[0]}</p>
+    `
 }
 
 function createSearchDescription(description) {
-    let newDescriptionText = document.createElement("p");
-    newDescriptionText.classList.add("modalDescription");
-    newDescriptionText.innerText = description;
-
-    return newDescriptionText
+    return `
+        <p class = "modalDescription">${description}</p>
+    `
 }
 
 async function getTrailer(movieID) {
@@ -91,15 +82,15 @@ function createSearchCards() {
             let newCard = document.createElement("div");
             newCard.classList.add("card");
 
-            newCard.appendChild(createSearchImage(i.poster_path))
+            newCard.innerHTML += (createSearchImage(i.poster_path))
 
             let newCardBody = document.createElement("div");
             newCardBody.classList.add("card-body");
             newCard.appendChild(newCardBody);
 
-            newCardBody.appendChild(createSearchTitle(i.title))
-            newCardBody.appendChild(createSearchYear(i.release_date))
-            newCardBody.appendChild(createSearchDescription(i.overview))
+            newCardBody.innerHTML += (createSearchTitle(i.title))
+            newCardBody.innerHTML += (createSearchYear(i.release_date))
+            newCardBody.innerHTML += (createSearchDescription(i.overview))
             newCardBody.appendChild(createTrailerLink(i.id))
             newCardBody.appendChild(createSearchWatchLinks(i.id))
 

@@ -68,11 +68,6 @@ function clearAllMovies() {
   }
 }
 
-setFeaturedMovies("popular")
-setFeaturedMovies("top_rated")
-getAllMovies(currentGenera)
-document.querySelector("#loadMoreButton").click()
-
 document.querySelector("#loadMoreButton").addEventListener("click", () => {
   currentPage += 1
   getAllMovies(currentGenera)
@@ -119,3 +114,8 @@ window.onclick = function (event) {
     infoModal.style.display = "none";
   }
 }
+
+setFeaturedMovies("popular")
+setFeaturedMovies("top_rated")
+getAllMovies(currentGenera)
+document.querySelector("#loadMoreButton").click()
