@@ -88,12 +88,19 @@ for (let buttons of document.querySelectorAll(".generasButton")) {
   })
 }
 
+var isExecuted = false
 document.addEventListener("scroll", function (event) {
   let offset = window.scrollY / (document.body.offsetHeight - window.innerHeight)
 
-  if (offset > 0.85) {
+  if (offset > 0.85 && !isExecuted) {
+    isExecuted = true
     currentPage = currentPage + 1
     getAllMovies(currentGenera)
+
+    setTimeout(() => {
+      isExecuted = false;
+  }, 1000);
+  
   }
 })
 
